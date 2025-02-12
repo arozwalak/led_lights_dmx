@@ -7,6 +7,7 @@ export class App {
   LED_SIZE = 50;
   STEP = 1 / this.COLS;
   leds: paper.Path.Rectangle[] = [];
+  brightness = 0;
 
   RED = new paper.Color(1, 0, 0);
   GREEN = new paper.Color(0, 1, 0);
@@ -26,9 +27,12 @@ export class App {
 
     const brightnessSlider = this.getBrightnessSlider();
     if (brightnessSlider) {
-      brightnessSlider.addEventListener('input', event => {
+      brightnessSlider.addEventListener('input', (event: any) => {
         const value = parseFloat(event.srcElement.value);
-        console.log('value:', value);
+        this.brightness = value;
+        for (let i = 0; i < this.leds.length; i += 1) {
+          this.changeColorTo(this.leds[i], new paper.Color(value / 100, 0, 0));
+        }
       });
     }
   }
@@ -41,9 +45,8 @@ export class App {
         const size = new paper.Size(this.LED_SIZE, this.LED_SIZE);
         const initialColor = new paper.Color(j * this.STEP, 0, 0);
         const point = new paper.Point(j * this.LED_SIZE, i * this.LED_SIZE);
-        row.push(this.generateLED(index, size, initialColor, point));
+        this.leds.push(this.generateLED(index, size, initialColor, point));
       }
-      this.leds.push(row);
     }
   }
 
