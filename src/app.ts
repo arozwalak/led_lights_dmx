@@ -1,3 +1,4 @@
+// entire file content ...
 import * as paper from 'paper';
 
 export class App {
@@ -28,14 +29,25 @@ export class App {
     setInterval(() => {
       for (let x = 0; x < this.leds.length; x += 1) {
         const row = this.leds[x];
-        const currentColor = row[0].style.fillColor;
         for (let y = 0; y < row.length; y += 1) {
           let led = row[y];
+          // Get the current color and brightness of the LED
+          let currentColor = led.fillColor;
+          let currentBrightness = currentColor.red;
           
+          // Update the brightness for the next frame
+          if (currentBrightness < 1) {
+            currentBrightness += this.STEP / 2;
+          } else {
+            direction = -direction;
+            currentBrightness -= this.STEP / 2;
+          }
+          
+          // Update the color of the LED with the new brightness
+          led.fillColor = new paper.Color(currentBrightness, 0, 0);
         }
       }
     }, 100);
-
   }
 
   generateLEDs() {
