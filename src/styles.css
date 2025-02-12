@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#root {
+    display: grid;
+    grid-template-columns: repeat(1500, 5px);
+    grid-template-rows: repeat(1000, 5px);
+    gap: 0px;
+    background-color: #111;
+    width: fit-content;
+    height: fit-content;
+}
+
+.led {
+    width: 5px;
+    height: 5px;
+    background-color: #333;
+    border-radius: 1px;
+}
