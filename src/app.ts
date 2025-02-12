@@ -4,4 +4,5 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('TypeScript is working!');
 });
 
-// create hello world function. AI!
+// create hello world function
+console.log('TypeScript is working!');
