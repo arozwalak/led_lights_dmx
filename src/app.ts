@@ -1,5 +1,7 @@
-import './styles.css';
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('TypeScript is working!');
-});
+export class App {
+
+  constructor() {
+    console.log("created App test");
+  }
+}
