@@ -3,9 +3,9 @@ import * as paper from 'paper';
 import { of, delay, map, timer, Subscription } from 'rxjs';
 
 
-const ROWS = 10;
-const COLS = 15;
-const LED_SIZE = 50;
+const ROWS = 20;
+const COLS = 30;
+const LED_SIZE = 25;
 const STEP = 1 / COLS;
 
 const RED = new paper.Color(1, 0, 0);
@@ -31,26 +31,14 @@ export class App {
   delayInput: HTMLInputElement | null = null;
   intervalInput: HTMLInputElement | null = null;
 
-  constructor() {
-    console.log("created App");
-  }
-
   init() {
     console.log('initialising...');
-    console.log('setting up canvas for paperjs');
     const panel: any = document.querySelector('#panel');
     paper.setup(panel);
 
-    console.log('getting UI elements');
     this.getElements();
-
-    console.log('generating LEDs');
     this.generateLEDs();
-
-    console.log('setting up sliders');
     this.setupSliders();
-
-    console.log('registering handlers');
     this.registerEventHandlers();
   }
 
@@ -92,8 +80,7 @@ export class App {
 
     if (delay >= 0 && interval >= 0) {
       this.timer = timer(delay, interval).subscribe((el) => {
-        console.log('element', el);
-        this.columnAnimation(el % 15);
+        this.columnAnimation(el % COLS);
       });
 
       if (this.startBtn) {
@@ -116,13 +103,12 @@ export class App {
   private columnAnimation(column: number) {
     let col = this.getColumn(column);
     col.forEach((led) => led.fillColor = RGB[this.currentColor]);
-    if (column === 14) {
+    if (column === COLS - 1) {
       if (this.currentColor > 2) {
         this.currentColor = 0;
       } else {
         this.currentColor++;
       }
-      console.log(this.currentColor);
     }
   }
 
@@ -206,16 +192,16 @@ export class App {
       switch(color) {
         case 'red':
           red = parseFloat(value) / 100;
-          green = led.style.fillColor!.green;
+          green = led.style.fillColor?.green;
           blue = led.style.fillColor!.blue;
           break;
         case 'green':
-          red = led.style.fillColor!.red;
+          red = led.style.fillColor?.red;
           green = parseFloat(value) / 100;
           blue = led.style.fillColor!.blue;
           break;
         case 'blue':
-          red = led.style.fillColor!.red;
+          red = led.style.fillColor?.red;
           green = led.style.fillColor!.green;
           blue = parseFloat(value) / 100;
           break;
@@ -223,7 +209,10 @@ export class App {
           throw new Error('wrong color, should be one of "red", "green", "blue"');
       }
 
-      this.changeColorTo(this.leds[i], new paper.Color(red, green, blue));
+
+      if (red !== undefined && green !== undefined && blue !== undefined) {
+        this.changeColorTo(this.leds[i], new paper.Color(red, green, blue));
+      }
     }
   }
 }
