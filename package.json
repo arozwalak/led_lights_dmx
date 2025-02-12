@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "LED panel simulation",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production --config webpack.config.cjs",
+    "dev": "webpack serve --mode development --config webpack.config.cjs",
+    "start": "webpack serve --open --config webpack.config.cjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

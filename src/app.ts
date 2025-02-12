@@ -2,6 +2,6 @@
 export class App {
 
   constructor() {
-    console.log("created App test");
+    console.log("created App ");
   }
 }

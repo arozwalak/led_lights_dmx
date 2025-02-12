@@ -1,5 +1,10 @@
-$red: #f00;
 
-#root {
-    background-color: $red;
+#panel {
+    border: 1px solid #000;
+    min-height: 600px;
+}
+
+#interface {
+    border: 1px solid #000;
+    min-height: 260px;
 }

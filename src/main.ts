@@ -14,5 +14,5 @@ function component() {
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('TypeScript is working!');
-  document.body.appendChild(component());
+//   document.body.appendChild(component());
 });
