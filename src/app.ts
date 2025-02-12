@@ -6,7 +6,7 @@ export class App {
   COLS = 15;
   LED_SIZE = 50;
   STEP = 1 / this.COLS;
-  leds: paper.Path.Rectangle[][] = [];
+  leds: paper.Path.Rectangle[] = [];
 
   RED = new paper.Color(1, 0, 0);
   GREEN = new paper.Color(0, 1, 0);
@@ -24,30 +24,39 @@ export class App {
     this.generateLEDs();
     console.log(this.leds);
 
+    const brightness = this.getBrightnessSlider();
+    if (brightness) {
+      brightness.addEventListener('input', event => {
+          console.log('value', event.srcElement.value);
+      })
+    }
+    
+
     let x = 0;
-    let direction = -1;
-    setInterval(() => {
-      for (let x = 0; x < this.leds.length; x += 1) {
-        const row = this.leds[x];
-        for (let y = 0; y < row.length; y += 1) {
-          let led = row[y];
-          // Get the current color and brightness of the LED
-          let currentColor = led.fillColor;
-          let currentBrightness = currentColor.red;
-          
-          // Update the brightness for the next frame
-          if (currentBrightness < 1) {
-            currentBrightness += this.STEP / 2;
-          } else {
-            direction = -direction;
-            currentBrightness -= this.STEP / 2;
-          }
-          
-          // Update the color of the LED with the new brightness
-          led.fillColor = new paper.Color(currentBrightness, 0, 0);
-        }
-      }
-    }, 100);
+    // setInterval(() => {
+    //   let direction = -1;
+    //   for (let x = 0; x < this.leds.length; x += 1) {
+    //     const led = this.leds[x];
+    //     // Get the current color and brightness of the LED
+    //     let currentColor = led.fillColor;
+    //     if (currentColor) {
+    //       let currentBrightness = currentColor.red;
+        
+    //     // Update the brightness for the next frame
+    //     if (currentBrightness + this.STEP / 2 > 1 ||
+    //       currentBrightness - this.STEP / 2 < 0
+    //     ) {
+    //       direction = -direction;
+    //     }
+    //     currentBrightness = currentBrightness + direction * (this.STEP / 2);
+        
+    //     console.log(currentBrightness);
+        
+    //     // Update the color of the LED with the new brightness
+    //     led.fillColor = new paper.Color(currentBrightness, 0, 0);
+    //     }
+    //   }
+    // }, 1000);
   }
 
   generateLEDs() {
@@ -58,9 +67,8 @@ export class App {
         const size = new paper.Size(this.LED_SIZE, this.LED_SIZE);
         const initialColor = new paper.Color(j * this.STEP, 0, 0);
         const point = new paper.Point(j * this.LED_SIZE, i * this.LED_SIZE);
-        row.push(this.generateLED(index, size, initialColor, point));
+        this.leds.push(this.generateLED(index, size, initialColor, point));
       }
-      this.leds.push(row);
     }
   }
 
@@ -72,5 +80,9 @@ export class App {
     const ledElement = new paper.Path.Rectangle(point, size);
     ledElement.fillColor = initialColor;
     return ledElement;
+  }
+
+  getBrightnessSlider() {
+    return document.getElementById('brightness');
   }
 }
