@@ -10,9 +10,21 @@
     <canvas id="panel"></canvas>
     <div id="interface">
         brightness
-        <input type="range" id="brightness" />
+        <input type="range" id="brightnessSlider" />
+        red
+        <input type="range" id="redSlider" />
+        green
+        <input type="range" id="greenSlider" />
+        blue
+        <input type="range" id="blueSlider" />
         hue
-        <input type="range" id="hue" />
+        <input type="range" id="hueSlider" />
+        <br />
+
+        <button id="startBtn">Start</button>
+        <button id="stopBtn">Stop</button>
+        <input type="text" name="delay" id="delayInput" value="0">
+        <input type="text" name="interval" id="intervalInput" value="100">
     </div>
 </body>
 </html>
